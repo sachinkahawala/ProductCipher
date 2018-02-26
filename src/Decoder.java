@@ -5,6 +5,9 @@
  */
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  *
  * @author Sachin
@@ -13,14 +16,50 @@ class Decoder {
     public void Decoder()throws IOException
     {
         BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter IP:");
-        String ip = obj.readLine();
+        String ip = "";
+        String line=null;
+        try {
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader =
+                    new FileReader("C:\\Users\\Sachin\\IdeaProjects\\ProductCipher\\src\\EncodedText.txt");
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader =
+                    new BufferedReader(fileReader);
+
+            while((line = bufferedReader.readLine()) != null) {
+                ip+=line;
+            }
+
+
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println(
+                    "Unable to open file ");
+        }
+        catch(IOException ex) {
+            System.out.println(
+                    "Error reading file ");
+
+        }
         System.out.println("Enter Key");
         String k1 = obj.readLine();
         String op = "";
         op = transposition(ip,(int)NumberBuilder.convertTo8digits(k1)%10);
-        op = substitution(op,k1);
+        op = substitution(op.trim(),k1);
         System.out.println(op);
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter("C:\\Users\\Sachin\\IdeaProjects\\ProductCipher\\src\\DecodedText.txt"));
+            out.write(op);
+            out.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Exception ");
+
+        }
+
     }
 
     String substitution(String ip, String k){

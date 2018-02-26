@@ -11,19 +11,40 @@
  */
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 class Encoder {
     public void Encoder()throws IOException
     {
+
+        String ip = null;
+        try
+        {
+            ip = new String ( Files.readAllBytes( Paths.get("C:\\Users\\Sachin\\IdeaProjects\\ProductCipher\\src\\ToBeEncoded.txt") ) );
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
         BufferedReader obj = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter phrase:");
-        String ip = obj.readLine();
         System.out.println("Enter Key");
         String k1 = obj.readLine();
         String op = "";
         op = substitution(ip,k1);
         op = tansposition(op,(int)NumberBuilder.convertTo8digits(k1)%10);
         System.out.println(op);
+        try {
+            BufferedWriter encodedOutPut = new BufferedWriter(new FileWriter("C:\\Users\\Sachin\\IdeaProjects\\ProductCipher\\src\\EncodedText.txt"));
+            encodedOutPut.write(op);
+            encodedOutPut.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Exception ");
+
+        }
     }
     public static String substitution(String ip, String k){
         long key = NumberBuilder.convertTo8digits(k);
