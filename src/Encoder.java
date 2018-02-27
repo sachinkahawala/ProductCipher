@@ -21,7 +21,7 @@ class Encoder {
         String ip = null;
         try
         {
-            ip = new String ( Files.readAllBytes( Paths.get("C:\\Users\\Sachin\\IdeaProjects\\ProductCipher\\src\\ToBeEncoded.txt") ) );
+            ip = new String ( Files.readAllBytes( Paths.get("ToBeEncoded.txt") ) );
         }
         catch (IOException e)
         {
@@ -33,10 +33,10 @@ class Encoder {
         String k1 = obj.readLine();
         String op = "";
         op = substitution(ip,k1);
-        op = tansposition(op,(int)NumberBuilder.convertTo8digits(k1)%10);
+        op = tansposition(op,(int)NumberBuilder.convertTo8digits(k1)%10+1);
         System.out.println(op);
         try {
-            BufferedWriter encodedOutPut = new BufferedWriter(new FileWriter("C:\\Users\\Sachin\\IdeaProjects\\ProductCipher\\src\\EncodedText.txt"));
+            BufferedWriter encodedOutPut = new BufferedWriter(new FileWriter("EncodedText.txt"));
             encodedOutPut.write(op);
             encodedOutPut.close();
         }

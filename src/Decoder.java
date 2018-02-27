@@ -21,7 +21,7 @@ class Decoder {
         try {
             // FileReader reads text files in the default encoding.
             FileReader fileReader =
-                    new FileReader("C:\\Users\\Sachin\\IdeaProjects\\ProductCipher\\src\\EncodedText.txt");
+                    new FileReader("EncodedText.txt");
 
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader =
@@ -46,11 +46,11 @@ class Decoder {
         System.out.println("Enter Key");
         String k1 = obj.readLine();
         String op = "";
-        op = transposition(ip,(int)NumberBuilder.convertTo8digits(k1)%10);
+        op = transposition(ip,(int)NumberBuilder.convertTo8digits(k1)%10+1);
         op = substitution(op.trim(),k1);
         System.out.println(op);
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter("C:\\Users\\Sachin\\IdeaProjects\\ProductCipher\\src\\DecodedText.txt"));
+            BufferedWriter out = new BufferedWriter(new FileWriter("DecodedText.txt"));
             out.write(op);
             out.close();
         }
